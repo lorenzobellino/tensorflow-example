@@ -25,8 +25,16 @@ keras.layers.Dense(128,activation = "softmax")
 
 model.compile(optimizer = "adam", loss = "sparse_categorical_crossentropy", metrics = ["accuracy"])
 
-model.fit(train_images, train_labels, epochs = 8)
+model.fit(train_images, train_labels, epochs = 5)
 
 test_loss, test_acc = model.evaluate(test_images, test_labels)
 
-print("tested accuracy ",test_acc)
+#print("tested accuracy ",test_acc)
+
+prediction = model.predict(test_images)
+for i in range(5):
+    plt.grid(False)
+    plt.imshow(test_images[i],cmap=plt.cm.binary)
+    plt.xlabel("Actual: "+class_names[test_labels[i]])
+    plt.title("prediction: "+class_names[np.argmax(prediction[i])])
+    plt.show()
