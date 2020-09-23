@@ -12,7 +12,7 @@ def decode(text):
 
 data = keras.datasets.imdb
 
-(train_data, train_labels), (test_data, test_labels) = data.load_data(num_words=10000);
+(train_data, train_labels), (test_data, test_labels) = data.load_data(num_words=88000);
 
 #print(train_data[0])
 
@@ -42,7 +42,7 @@ test_data = keras.preprocessing.sequence.pad_sequences(test_data, value=word_ind
 #e l'ultimo livello denso è solo un neurone che manda in output un valore [0,1]
 
 model = keras.Sequential([
-    keras.layers.Embedding(10000, 16),
+    keras.layers.Embedding(88000, 16),
     keras.layers.GlobalAveragePooling1D(),
     keras.layers.Dense(16,activation = "relu"),
     keras.layers.Dense(1,activation = "sigmoid")
@@ -76,3 +76,7 @@ print(decode(test))
 print("Prediction: "+str(predict[index]))
 print("Actual    : "+str(test_labels[index]))
 print(result)
+
+#PER SALVARE IL MODELLO BASTA:
+
+model.save("imdb.h5")
